@@ -22,7 +22,10 @@ def extractPackage(packagePath, outputPath=""):
 
       #Extract the path name of the asset
       pathname = upkg.extractfile(f"{name}/pathname").readline() #Reads the first line of the pathname file
-      pathname = pathname[:-1].decode("utf-8") #Remove the newling, and decode
+      if re.search(r"\n$",str(pathname)):
+        pathname = pathname[:-1].decode("utf-8") #Remove the newling, and decode
+      else:
+        pathname = pathname.decode("utf-8") #Remove the newling, and decode
       #Extract to the pathname
       print(f"Extracting '{name}' as '{pathname}'")
       assetFile = upkg.extractfile(f"{name}/asset")
